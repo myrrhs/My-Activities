@@ -218,10 +218,12 @@ public class AccelerometerService extends SensorService implements SensorEventLi
             // convert the timestamp to milliseconds (note this is not in Unix time)
             long timestamp_in_milliseconds = (long) ((double) event.timestamp / Constants.TIMESTAMPS.NANOSECONDS_PER_MILLISECOND);
 
-            //TODO: Send the accelerometer reading to the server
             Log.d(TAG, "X : " + event.values[0] + ", Y : " + event.values[1] + ", Z : " + event.values[2]);
+            //TODO: Send the accelerometer reading to the server
+            mClient.sendSensorReading(new AccelerometerReading(mUserID, "MOBILE", "", System.currentTimeMillis(), event.values));
 
             //TODO: broadcast the accelerometer reading to the UI
+            broadcastAccelerometerReading(System.currentTimeMillis(), event.values);
 
         }else if (event.sensor.getType() == Sensor.TYPE_STEP_DETECTOR) {
 
