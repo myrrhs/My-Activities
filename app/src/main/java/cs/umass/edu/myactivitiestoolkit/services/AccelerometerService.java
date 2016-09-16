@@ -155,7 +155,7 @@ public class AccelerometerService extends SensorService implements SensorEventLi
         //TODO : (Assignment 0) Register the accelerometer sensor from the sensor manager.
         this.mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometerSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(this, mAccelerometerSensor, 1000000); //Delay set to 1 second
+        mSensorManager.registerListener(this, mAccelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL); //Delay set to 1 second
 
         //TODO : (Assignment 1) Register your step detector. Register an OnStepListener to receive step events
     }
@@ -249,6 +249,7 @@ public class AccelerometerService extends SensorService implements SensorEventLi
      */
     public void broadcastAccelerometerReading(final long timestamp, final float[] accelerometerReadings) {
         Intent intent = new Intent();
+        intent.putExtra(Constants.KEY.TIMESTAMP, timestamp);
         intent.putExtra(Constants.KEY.ACCELEROMETER_DATA, accelerometerReadings);
         intent.setAction(Constants.ACTION.BROADCAST_ACCELEROMETER_DATA);
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
